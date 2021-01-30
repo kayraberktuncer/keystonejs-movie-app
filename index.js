@@ -1,5 +1,5 @@
 const { Keystone } = require('@keystonejs/keystone');
-const { Text } = require('@keystonejs/fields');
+const { Text, Integer } = require('@keystonejs/fields');
 const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 const { StaticApp } = require('@keystonejs/app-static');
@@ -13,10 +13,18 @@ const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
 });
 
-keystone.createList('Todo', {
-  schemaDoc: 'A list of things which need to be done',
+keystone.createList('Movie', {
   fields: {
-    name: { type: Text, schemaDoc: 'This is the thing you need to do' },
+    title: {
+      type: Text,
+      isRequired: true,
+      isUnique: true
+    },
+    rating: {
+      type: Integer,
+      isRequired: true,
+      defaultValue: 10
+    }
   },
 });
 
